@@ -9,7 +9,7 @@ const port = process.env.PORT;
 
 
 const mongoose = require("mongoose");
-const connectionString = 'mongodb://localhost:27017/Tododb';
+const connectionString = process.env.MONGO_DB_LOCAL;
 
 mongoose.connect(connectionString, {
     useUnifiedTopology: true

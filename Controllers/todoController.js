@@ -1,14 +1,6 @@
-const mongoose = require("mongoose");
-const { Schema } = mongoose;
-// Same as const Schema = mongoose.Schema
-const toDoSchema = new Schema({
-    title: String,
-    description: String,
-    timestamp: String
-})
+const ToDoCollection = require("../Models/todoModel");
 
-const ToDoCollection = mongoose.model('ToDoCollection', toDoSchema);
-
+// Adding a New Todo Task
 exports.addTodos = (req, res) => {
     let newTodo = req.body;
     ToDoCollection.create(newTodo,
@@ -30,6 +22,7 @@ exports.addTodos = (req, res) => {
     )
 }
 
+// Retrieve all Todo Task
 exports.getTodos = (req, res) => {
     ToDoCollection.find({},
         (err, Todos) => {
@@ -46,6 +39,7 @@ exports.getTodos = (req, res) => {
     )
 }
 
+// Retrieve a particular Todo Task using Id
 exports.findTodo = async (req, res) => {
     let id = { _id: req.params.id };
 
@@ -60,6 +54,7 @@ exports.findTodo = async (req, res) => {
 
 }
 
+// Updating a Todo task
 exports.updateTodo = async (req, res) => {
     let id = { _id: req.params.id };
     let updatedDetails = await req.body;
@@ -84,6 +79,7 @@ exports.updateTodo = async (req, res) => {
 
 }
 
+// Deleting a Todo Task
 exports.deleteTodo = async (req, res) => {
     let id = { _id: req.params.id };
     ToDoCollection.findByIdAndDelete(id, (err, todo) => {
